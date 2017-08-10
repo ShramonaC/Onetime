@@ -1,6 +1,9 @@
 package com.example.shramona.onetime;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -8,15 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,55 +26,60 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
-import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    // Alert Dialog Manager
-   // AlertDialogManager alert = new AlertDialogManager();
-    public static final String JSON_URL = "http://transolver.000webhostapp.com/store.php";
-    public static final String JSON_URL_Add = "http://transolver.000webhostapp.com/add.php";
-    public static final String KEY_CONAME = "name";
-    public static final String KEY_COSEC = "sector";
-    public static final String KEY_COSCORE = "score";
+import static com.example.shramona.onetime.ParseDetails.coname;
+import static com.example.shramona.onetime.ParseDetails.cscor;
+import static com.example.shramona.onetime.ParseDetails.csec;
+
+public class MainActivity extends AppCompatActivity {
+    public static final String JSON_URL = "http://shramocse.000webhostapp.com/store.php";
    private Button addc;
     int k=0,m=0;
     EditText ComName,ComSec,ComSco;
     private ListView listView;
     // Session Manager Class
     SessionManagement session;
+    ProgressDialog pd;
 
-   String[] listValue = new String[] {"ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Session class instance
         session = new SessionManagement(getApplicationContext());
 
         TextView lblName = (TextView) findViewById(R.id.lblName);
-        ComName=(EditText)findViewById(R.id.ComName);
-        ComSec=(EditText)findViewById(R.id.ComSec);
-        ComSco=(EditText)findViewById(R.id.ComSco);
-        addc =(Button)findViewById(R.id.addc);
+       /* TextView textViewId = (TextView) findViewById(R.id.compnme);
+        TextView textViewName = (TextView) findViewById(R.id.sectr);
+        TextView textViewEmail = (TextView) findViewById(R.id.scr);
+        TextView compnme1 = (TextView) findViewById(R.id.compnme1);
+        TextView sectr1 = (TextView) findViewById(R.id.sectr1);
+        TextView scr1 = (TextView) findViewById(R.id.scr1);*/
+        pd = ProgressDialog.show(MainActivity.this, "", "Loading, please wait!");
+
         listView = (ListView) findViewById(R.id.lView);
         listView.setAlpha(1.0f);
-        ComName.setAlpha(0.0f);
-        ComSec.setAlpha(0.0f);
-        ComSco.setAlpha(0.0f);
-        addc.setAlpha(0.0f);
 
         session.checkLogin();
-        // Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-        // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-        // name
         String nameL = user.get(SessionManagement.KEY_NAME);
         // displaying user data
         lblName.setText(Html.fromHtml("Name: <b>" + nameL + "</b>"));
 
         getData();
 
+        String fontPath = "fonts/lato-medium.ttf";
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        lblName.setTypeface(tf);
+       /* textViewId.setTypeface(tf);
+        textViewName.setTypeface(tf);
+        textViewEmail.setTypeface(tf);
+        compnme1.setTypeface(tf);
+        sectr1.setTypeface(tf);
+        scr1.setTypeface(tf);*/
     }
 
     /* List view*/
@@ -82,32 +89,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        pd.dismiss();
                         showDetails(response);
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                        pd.dismiss();
+                        Toast.makeText(MainActivity.this,"Please connect to the internet",Toast.LENGTH_LONG).show();
                     }
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
     private void showDetails(String json){
         ParseDetails pd = new ParseDetails(json);
         pd.parseDetails();
-       // Check adapter = new Check(MainActivity.this, ParseDetails.coname,ParseDetails.csec,ParseDetails.cscor);
-       // listView.setAdapter(adapter);
-       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_2, android.R.id.text1, listValue);
+        Check adapter = new Check(MainActivity.this, coname,ParseDetails.csec,ParseDetails.cscor);
+       listView.setAdapter(adapter);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-               String abc=ParseDetails.csec[position];
-                //Toast.makeText(MainActivity.this,abc,Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, ParseDetails.coname[position], Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, Apply.class);
+                intent.putExtra("cnc", coname[position]);
+                intent.putExtra("csc", csec[position]);
+                intent.putExtra("cscc", cscor[position]);
+                startActivity(intent);
+
             }
         });
     }
@@ -120,13 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         k++;
         if(k == 1)
         {
-            if(m >= 1) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
-            }
-            else{
-                Toast.makeText(MainActivity.this, "Please press again to exit.", Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(MainActivity.this, "Please press again to exit.", Toast.LENGTH_SHORT).show();
 
         }
     else
@@ -147,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch(id) {
             case R.id.notify_id:
                 Intent i = new Intent(getApplicationContext(), About.class);
@@ -156,70 +162,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnLogout:
                 session.logoutUser();
                 return true;
+            case R.id.addcmpy:
+                Intent intent = new Intent(getApplicationContext(), Save.class);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
-    }
-    @Override
-    public void onClick(View v) {
-        listView.setAlpha(0.0f);
-        ComName.setAlpha(1.0f);
-        ComSec.setAlpha(1.0f);
-        ComSco.setAlpha(1.0f);
-        addc.setAlpha(1.0f);
-
-        Log.e("My Tags", "onBackPressed");
-        m++;
-
     }
 
-    /* Add custom Company*/
-    public void Onadd(View v) {
-        final String names = ComName.getText().toString().trim();
-        final String sectors = ComSec.getText().toString().trim();
-        final String scores = ComSco.getText().toString().trim();
-        if (names.length() > 0 && sectors.length()>0 && scores.length()>0 ) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_Add,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(MainActivity.this, Save.class);
-                            intent.putExtra("cn", names);
-                            intent.putExtra("cs", sectors);
-                            intent.putExtra("csc", scores);
-                            startActivity(intent);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put(KEY_CONAME, names);
-                    params.put(KEY_COSEC, sectors);
-                    params.put(KEY_COSCORE, scores);
-                    return params;
+
+    public class FontChangeCrawler
+    {
+        private Typeface typeface;
+
+        public FontChangeCrawler(Typeface typeface)
+        {
+            this.typeface = typeface;
+        }
+
+        public FontChangeCrawler(AssetManager assets, String assetsFontFileName)
+        {
+            typeface = Typeface.createFromAsset(assets, assetsFontFileName);
+        }
+
+        public void replaceFonts(ViewGroup viewTree)
+        {
+            View child;
+            for(int i = 0; i < viewTree.getChildCount(); ++i)
+            {
+                child = viewTree.getChildAt(i);
+                if(child instanceof ViewGroup)
+                {
+                    // recursive call
+                    replaceFonts((ViewGroup)child);
                 }
-
-            };
-
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
-        }
-        else{
-           Toast.makeText(this,"Please enter all the details",Toast.LENGTH_LONG).show();
+                else if(child instanceof TextView)
+                {
+                    // base case
+                    ((TextView) child).setTypeface(typeface);
+                }
+            }
         }
     }
 
-/* Add custom Company ends*/
+    @Override
+    public void setContentView(View view)
+    {
+        super.setContentView(view);
 
+        FontChangeCrawler fontChanger = new FontChangeCrawler(getAssets(), "lato-medium.otf");
+        fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+
+    }
 
 }
 

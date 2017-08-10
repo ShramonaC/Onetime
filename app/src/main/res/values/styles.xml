@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="onetime" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimaryDark">@color/primary_dark_material_light_1</item>
+    </style>
+    <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
+    </style>
 </resources>

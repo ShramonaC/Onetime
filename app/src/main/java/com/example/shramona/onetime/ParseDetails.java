@@ -1,6 +1,8 @@
 package com.example.shramona.onetime;
 
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +13,7 @@ class ParseDetails {
     public static String[] csec;
     public static String[] cscor;
 
-    public static final String JSON_ARRAY = "result";
+    public static final String JSON_URL_Add = "result";
     public static final String KEY_CNAME = "name";
     public static final String KEY_CSECTOR = "sector";
     public static final String KEY_CSCORE = "score";
@@ -28,7 +30,7 @@ class ParseDetails {
         JSONObject jsonObject=null;
         try {
             jsonObject = new JSONObject(json);
-            company = jsonObject.getJSONArray(JSON_ARRAY);
+            company = jsonObject.getJSONArray(JSON_URL_Add);
 
             coname= new String[company.length()];
             csec = new String[company.length()];
@@ -39,10 +41,16 @@ class ParseDetails {
                 coname[i] = jo.getString(KEY_CNAME);
                 cscor[i] = jo.getString(KEY_CSCORE);
                 csec[i] = jo.getString(KEY_CSECTOR);
+
+                String x=coname[0];
+                Log.i(x,"he");
             }
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
 

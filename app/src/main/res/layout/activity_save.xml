@@ -1,31 +1,72 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="@drawable/oneback">
+    android:layout_height="match_parent" android:background="@drawable/oneback2"
+    android:paddingTop="10dp">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        >
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:background="@android:drawable/ic_menu_add"
+            android:onClick="ok" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company Name"
+            android:textStyle="bold"
+            android:textColor="#20201f"
+            android:textSize="20dp"
+            android:id="@+id/ComName1"/>
+        <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFBBCBEC"
+            android:textColor="#20201f"
             android:layout_marginBottom="5dip"
             android:textSize="20dp"
             android:id="@+id/ComName"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company Sector"
+            android:textStyle="bold"
+            android:textColor="#20201f"
+            android:textSize="20dp"
+            android:id="@+id/ComSec1"/>
+        <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFBBCBEC"
+            android:layout_gravity="center"
+            android:textColor="#20201f"
             android:layout_marginBottom="5dip"
             android:textSize="20dp"
             android:id="@+id/ComSec"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company Score"
+            android:textStyle="bold"
+            android:textColor="#20201f"
+            android:textSize="20dp"
+            android:id="@+id/ComSco1"/>
+        <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFBBCBEC"
+            android:textColor="#20201f"
+            android:layout_gravity="center"
             android:layout_marginBottom="5dip"
             android:textSize="20dp"
+            android:inputType="number"
             android:id="@+id/ComSco"/>
-        </LinearLayout>
-    </ScrollView>
+
+
+    </LinearLayout>
+</LinearLayout>

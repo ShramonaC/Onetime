@@ -3,19 +3,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@drawable/about"
     android:paddingTop="120dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="189dp"
-        android:textColor="#f5f5f5"
-        android:background="#804b4a4a"
-        android:textSize="15dp"
-        android:text="The standard Lorem Ipsum passage, used since the 1500s
-
-
- Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        android:id="@+id/f1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#f4f0f0"
+        android:background="#80414040"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="The standard Lorem Ipsum passage, used since the 1500s"/>
+        <TextView
+            android:id="@+id/f2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#f5f5f5"
+            android:paddingTop="8dp"
+            android:background="#804b4a4a"
+            android:textSize="15dp"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
  Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,
  when an unknown printer took a galley of type and scrambled it to make a type specimen book."/>
-
+    </LinearLayout>
 
 </LinearLayout>

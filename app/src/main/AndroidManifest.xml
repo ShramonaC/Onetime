@@ -6,24 +6,25 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login" />
-        <activity android:name=".Save" />
+        <activity android:name=".Login" android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity android:name=".Save" android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".About" />
-        <activity android:name=".Home"></activity>
+        <activity android:name=".About"  android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Apply" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Last" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

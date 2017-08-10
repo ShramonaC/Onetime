@@ -1,5 +1,6 @@
 package com.example.shramona.onetime;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,20 +18,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class Login extends AppCompatActivity {
-    public String phone,OTP,authkey="168079AuFfq5vsv1kE5981a2bd",password,name;
+    public String phone,OTP,authkey="168079AuFfq5vsv1kE5981a2bd",password,name,otp;
 
 
 
     EditText txtNumber, txtPassword,txtUsername,txtOTP;
     Button btnLogin;
     int k=0;
-    TextView otpT;
-    // Alert Dialog Manager
+    TextView otpT,textpass,User,mob,oo;
     AlertDialogManager alert = new AlertDialogManager();
     SessionManagement session;
-    // Session Manager Class
-
-    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +37,29 @@ public class Login extends AppCompatActivity {
         txtUsername=(EditText)findViewById(R.id.txtUsername);
         txtOTP=(EditText)findViewById(R.id.txtOTP);
         otpT= (TextView) findViewById(R.id.OTPt);
-        //txtOTP.setAlpha(0.0f);
-        //otpT.setAlpha(0.0f);
+        User=(TextView) findViewById(R.id.User);
+        mob=(TextView) findViewById(R.id.mob);
+        oo=(TextView) findViewById(R.id.oo);
+        btnLogin=(Button) findViewById(R.id.btnLogin);
 
+        txtOTP.setAlpha(0.0f);
+        otpT.setAlpha(0.0f);
+        textpass=(TextView) findViewById(R.id.textpass);
+        textpass.setAlpha(1.0f);
 
         session= new SessionManagement(getApplicationContext());
+
+        String fontPath = "fonts/lato-medium.ttf";
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        txtNumber.setTypeface(tf);
+        txtPassword.setTypeface(tf);
+        txtNumber.setTypeface(tf);
+        txtOTP.setTypeface(tf);
+        txtUsername.setTypeface(tf);
+        otpT.setTypeface(tf);
+        btnLogin.setTypeface(tf);
+        mob.setTypeface(tf);
+        oo.setTypeface(tf);
 
 
     }
@@ -52,12 +67,15 @@ public class Login extends AppCompatActivity {
 
             txtOTP.setAlpha(1.0f);
             otpT.setAlpha(1.0f);
+            textpass.setAlpha(0.0f);
+            txtPassword.setAlpha(0.0f);
             txtNumber = (EditText) findViewById(R.id.txtPhone);
             phone = txtNumber.getText().toString().trim();
             int paperID = (int) Math.round(Math.random() * (999999 - 100000 + 1) + 100000);
             OTP = Integer.toString(paperID).trim();
             authkey = authkey.trim();
-        if(phone.length()==10) {
+            otp=txtOTP.getText().toString().trim();
+        if(phone.length()==10 && phone.length()!=0) {
             String username = txtUsername.getText().toString();
             session.createLoginSession(username);
             String url = "https://control.msg91.com/api/sendotp.php? authkey=" + authkey + "&mobile=" + phone + "&message=" + "Your%20otp%20is%20" + OTP + "&sender=" + "Employer" + "&otp=" + OTP;
@@ -66,6 +84,7 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Toast.makeText(Login.this, "Your OTP has been generated!! Please check your message box", Toast.LENGTH_LONG).show();
+                            System.out.println(OTP +" OTP of generate isthis");
                         }
                     },
                     new Response.ErrorListener() {
@@ -86,29 +105,39 @@ public class Login extends AppCompatActivity {
         }
     }
     public void login(View v){
-        OTP=txtOTP.getText().toString().trim();
+        otp=txtOTP.getText().toString().trim();
         phone=txtNumber.getText().toString().trim();
         password=txtPassword.getText().toString().trim();
         name=txtUsername.getText().toString().trim();
         if(phone.length()==10) {
-            if (name.length() > 0 && OTP.length() > 0 && phone.length() > 0) {
+            if (name.length() > 0 && otp.length() > 0 && phone.length() > 0) {
                 String url = "https://control.msg91.com/api/verifyRequestOTP.php?authkey=" + authkey + "&mobile=" + phone + "&otp=" + OTP;
+
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Toast.makeText(Login.this,response,Toast.LENGTH_LONG).show();
-                                session.createLoginSession(name);
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(i);
-                                finish();
+                                //Toast.makeText(Login.this, response, Toast.LENGTH_LONG).show();
+                                System.out.println(OTP +" OTP of login isthis");
+                                System.out.println(otp +"otp isthis");
+                                if(otp.equals(OTP)) {
+                                    go();
+                                }
+                                else
+                                {
+                                    Toast.makeText(Login.this, "Please enter correct OTP", Toast.LENGTH_LONG).show();
+                                }
 
                             }
+
+
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(Login.this, error.toString(), Toast.LENGTH_LONG).show();
+
+
                             }
                         }) {
 
@@ -117,17 +146,16 @@ public class Login extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 requestQueue.add(stringRequest);
-
             } else if (name.length() > 0 && password.length() > 0 && phone.length() > 0) {
                 session.createLoginSession(name);
-                Intent i = new Intent(getApplicationContext(), Home.class);
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
-            } else if (name.length() == 0 && password.length() > 0 && phone.length() > 0 && OTP.length() > 0) {
+            } else if (name.length() == 0 && password.length() > 0 && phone.length() > 0 && otp.length() > 0) {
                 Toast.makeText(Login.this, "Please enter your name", Toast.LENGTH_LONG).show();
-            } else if (name.length() > 0 && password.length() == 0 && phone.length() > 0 && OTP.length() == 0) {
+            } else if (name.length() > 0 && password.length() == 0 && phone.length() > 0 && otp.length() == 0) {
                 Toast.makeText(Login.this, "Either enter password or OTP", Toast.LENGTH_LONG).show();
-            } else if (name.length() == 0 && password.length() == 0 && phone.length() == 0 && OTP.length() == 0) {
+            } else if (name.length() == 0 && password.length() == 0 && phone.length() == 0 && otp.length() == 0) {
                 alert.showAlertDialog(Login.this, "Login failed..", "Please enter your details", false);
             }
         }
@@ -135,6 +163,13 @@ public class Login extends AppCompatActivity {
         {
             alert.showAlertDialog(Login.this, "Login failed..", "Please enter valid phone number", false);
         }
+    }
+    public void go(){
+        Toast.makeText(Login.this,"Welcome to Onetime", Toast.LENGTH_LONG).show();
+        session.createLoginSession(name);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        finish();
     }
     public void onBackPressed()
     {
@@ -152,4 +187,5 @@ public class Login extends AppCompatActivity {
             startActivity(a);
         }
     }
+
 }

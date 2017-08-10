@@ -16,7 +16,7 @@
 
             <ImageView
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/login" />
 
@@ -64,27 +64,29 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
-        android:textColor="#FFBBCBEC"
+        android:id="@+id/User"
+        android:text="Username"
+        android:textColor="#20201f"
         android:layout_marginBottom="5dip"/>
 
     <EditText android:id="@+id/txtUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFBBCBEC"
+        android:textColor="#20201f"
         android:layout_marginBottom="10dip"/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/mob"
         android:text="Mobile Number"
-        android:textColor="#FFBBCBEC"
+        android:textColor="#20201f"
         android:layout_marginBottom="5dip"/>
 
 
     <EditText android:id="@+id/txtPhone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFBBCBEC"
+        android:textColor="#20201f"
         android:inputType="number"
         android:maxLength="12"
         android:layout_marginBottom="10dip"/>
@@ -92,29 +94,31 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Tap here to generate otp"
+        android:text="Want OTP? Tap here!!"
         android:onClick="otpGenerate"
         android:clickable="true"
         android:layout_gravity="center"
         android:textAlignment="center"
+        android:id="@+id/oo"
         android:textSize="20dp"
-        android:textColor="#FFBBCBEC"
+        android:textStyle="bold"
+        android:textColor="#20201f"
         android:layout_marginBottom="5dip"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OR"
+                    android:text="Else"
+                    android:textColor="#20201f"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:textColor="#FFBBCBEC"
                     android:layout_marginBottom="5dip"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textpass"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFBBCBEC"
+        android:textColor="#20201f"
         android:layout_marginBottom="5dip"
         android:text="Enter Password " />
 
@@ -123,14 +127,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dip"
-        android:textColor="#FFBBCBEC"
+        android:textColor="#20201f"
         android:inputType="textPassword"
         />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/OTPt"
-        android:textColor="#FFBBCBEC"
+        android:textColor="#20201f"
         android:text="Enter OTP "
         android:layout_marginBottom="5dip"/>
 
@@ -138,15 +142,15 @@
     <EditText android:id="@+id/txtOTP"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFBBCBEC"
+        android:textColor="#20201f"
         android:layout_marginBottom="20dip"
         android:inputType="number"
         />
     <Button android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#FFBBCBEC"
+        android:background="@drawable/btn"
         android:onClick="login"
         android:text="Login"/>
 

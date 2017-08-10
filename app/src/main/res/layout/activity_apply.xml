@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/oneback2"
+    android:paddingTop="40dp">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ComName1"
+            android:text="Company Name"
+            android:textColor="#20201f"
+            android:layout_gravity="center"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#20201f"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="5dip"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:id="@+id/ComName"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company Sector"
+            android:textColor="#20201f"
+            android:id="@+id/ComSec1"
+            android:layout_gravity="center"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#20201f"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="5dip"
+            android:textSize="20dp"
+            android:id="@+id/ComSec"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company Score"
+            android:textColor="#20201f"
+            android:id="@+id/ComSco1"
+            android:layout_gravity="center"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#20201f"
+            android:layout_gravity="center"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="5dip"
+            android:textSize="20dp"
+            android:id="@+id/ComSco"/>
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="apply"
+            android:layout_margin="15dp"
+            android:text="Apply here"
+            android:id="@+id/apply"
+            android:background="@drawable/btn"/>
+    </LinearLayout>
+</LinearLayout>

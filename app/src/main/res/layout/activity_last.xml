@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/oneback2"
+    android:paddingTop="40dp">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#20201f"
+            android:textSize="30dp"
+            android:paddingLeft="80dp"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            android:text="You have added "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ComName1"
+            android:textStyle="bold"
+            android:text="Company Name"
+            android:textColor="#20201f"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#20201f"
+            android:textSize="20dp"
+            android:id="@+id/ComName"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company Sector"
+            android:textStyle="bold"
+            android:textColor="#20201f"
+            android:id="@+id/ComSec1"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#20201f"
+            android:textSize="20dp"
+            android:id="@+id/ComSec"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company Score"
+            android:textStyle="bold"
+            android:textColor="#20201f"
+            android:id="@+id/ComSco1"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#20201f"
+            android:textSize="20dp"
+            android:id="@+id/ComSco"/>
+    </LinearLayout>
+</LinearLayout>
