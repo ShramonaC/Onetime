@@ -18,7 +18,7 @@ $con = mysqli_connect(HOST,USER,PASS,DB) ;
               $result =  mysqli_fetch_array(mysqli_query($con,$sqld));
              if(isset($result))
                {
-                echo  "exists";
+                echo  "Company already exists";
                  }
          else
          {

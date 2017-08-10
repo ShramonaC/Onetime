@@ -22,13 +22,13 @@ if($total[0]<10 && $now1[0]==0)
 {
 $sql9="INSERT INTO Applied(sector,number) VALUES ('$sector',0)";
 mysqli_query($con,$sql9);
-echo"Max reached";
+echo"Maximum limit reached, can't apply further!";
 }
 elseif($now1[0]==0 && ($now[0] < intval(0.1*$total[0])))
 {
 $sql2="INSERT INTO Applied(sector,number) VALUES ('$sector',1)";
 mysqli_query($con,$sql2);
-echo "Done";
+echo "Applied";
 }
 else{
 	if($now[0] < intval(0.1*$total[0]))
@@ -36,11 +36,11 @@ else{
           
       $sql3="UPDATE Applied  SET number=number+1 WHERE sector='$sector'";
 	mysqli_query($con,$sql3);
-	echo "Done";
+	echo "Applied";
 	}
 	else
 	{
-  	echo "Maximum limit exit, you cannot apply";
+  	echo "Maximum limit reached, you cannot apply further!";
 	}
     }
 }
